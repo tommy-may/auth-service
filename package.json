@@ -1,0 +1,50 @@
+{
+  "name": "auth-service",
+  "type": "module",
+  "module": "src/index.ts",
+  "imports": {
+    "#pkg/*": "./packages/*"
+  },
+  "scripts": {
+    "start:dev": "bun --hot run src/index.ts",
+    "db:dev": "docker compose --env-file .env.development -f docker-compose.development.yml up -d",
+    "db:generate": "bunx --bun drizzle-kit generate",
+    "db:migrate": "bunx --bun drizzle-kit migrate",
+    "db:studio": "bunx --bun drizzle-kit studio",
+    "dummy-hash:generate": "bun run scripts/generate-dummy-hash.ts",
+    "jwt-secret:generate": "bun run scripts/generate-jwt-secret.ts",
+    "type:check": "tsc --noEmit",
+    "format": "prettier . --write",
+    "lint:fix": "eslint --fix .",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*": [
+      "eslint --fix --cache",
+      "prettier --write --ignore-unknown"
+    ]
+  },
+  "dependencies": {
+    "drizzle-orm": "^1.0.0-beta.22",
+    "hono": "^4.12.14",
+    "pg": "^8.20.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/bun": "^1.3.12",
+    "@types/pg": "^8.20.0",
+    "drizzle-kit": "^1.0.0-beta.22",
+    "eslint": "^10.2.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-perfectionist": "^5.8.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "3.8.3",
+    "typescript-eslint": "^8.58.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "private": true
+}

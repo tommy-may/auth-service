@@ -1,0 +1,20 @@
+{
+  "extends": "./packages/config/tsconfig.base",
+  "compilerOptions": {
+    "jsxImportSource": "hono/jsx",
+
+    // Path Alias
+    "paths": {
+      "#pkg/*": ["./packages/*"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "src",
+    "packages",
+    "scripts",
+    ".prettierrc.mjs",
+    "eslint.config.mjs",
+    "drizzle.config.ts"
+  ]
+}

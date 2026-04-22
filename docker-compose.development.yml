@@ -1,0 +1,17 @@
+services:
+  database:
+    container_name: dev-pg-database
+    image: postgres:17.5
+    ports:
+      - '${DB_PORT:-5432}:5432'
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - database-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  database-data:
+    # external: true
