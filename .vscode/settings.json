@@ -10,5 +10,5 @@
     ".eslintcache": true
   },
 
-  "cSpell.words": ["treeify", "uuidv", "vars"]
+  "cSpell.words": ["initdb", "Supabase", "treeify", "uuidv", "vars"]
 }

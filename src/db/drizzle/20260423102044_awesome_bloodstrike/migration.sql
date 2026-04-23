@@ -10,7 +10,7 @@ CREATE TABLE "sessions" (
 	"value_expires_at" timestamp NOT NULL,
 	"jti" uuid NOT NULL,
 	"jti_expires_at" timestamp NOT NULL,
-	"user_agent" varchar,
+	"user_agent" varchar(512),
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );
@@ -23,5 +23,6 @@ CREATE TABLE "users" (
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
+CREATE INDEX "idx_blacklist_expires_at" ON "blacklist" ("expires_at");--> statement-breakpoint
 CREATE INDEX "idx_sessions_user_id" ON "sessions" ("user_id");--> statement-breakpoint
 ALTER TABLE "sessions" ADD CONSTRAINT "sessions_user_id_users_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE;

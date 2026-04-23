@@ -1,7 +1,5 @@
 import type { SQL } from 'drizzle-orm';
 
-import { lt } from 'drizzle-orm';
-
 import type { NewSession } from '@/schema/session';
 import type { NewUser } from '@/schema/user';
 
@@ -56,10 +54,6 @@ export const Repository = {
 
     find: ((...config) => db.query.sessions.findFirst(...config)) as typeof db.query.sessions.findFirst,
     findMany: ((...config) => db.query.sessions.findMany(...config)) as typeof db.query.sessions.findMany,
-
-    // Deletes sessions whose refresh token has already expired.
-    // Safe to call at any time — expired sessions can no longer be used to authenticate.
-    cleanup: () => db.delete(schema.sessions).where(lt(schema.sessions.valueExpiresAt, new Date())),
   },
 
   blacklist: {
@@ -77,9 +71,5 @@ export const Repository = {
         },
       },
     },
-
-    // Deletes all blacklist entries whose access token has already expired.
-    // Safe to call at any time — expired JTIs can no longer be presented as valid tokens.
-    cleanup: () => db.delete(schema.blacklist).where(lt(schema.blacklist.expiresAt, new Date())),
   },
 };

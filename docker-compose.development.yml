@@ -1,7 +1,14 @@
 services:
   database:
     container_name: dev-pg-database
-    image: postgres:17.5
+    # image: postgres:17.5
+    build:
+      context: .
+      dockerfile: database.Dockerfile
+    command: >
+      postgres
+        -c shared_preload_libraries=pg_cron
+        -c cron.database_name=${DB_NAME}
     ports:
       - '${DB_PORT:-5432}:5432'
     environment:
@@ -9,6 +16,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     volumes:
+      - ./sql:/docker-entrypoint-initdb.d
       - database-data:/var/lib/postgresql/data
     restart: unless-stopped
 
